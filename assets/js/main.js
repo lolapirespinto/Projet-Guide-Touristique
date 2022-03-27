@@ -1,6 +1,78 @@
+/* Fonction pour connecter la bdd au site web*/
+/*------------ C'est ici que ca fonctionne pas : il ne reconnait pas le "require"-------------*/
+/*
+var mysql = require('mysql');
+const connection = createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database:'guide_touristique',
+  port: '8889'
+});
+
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected!');
+});*/
+
+/* Fonction pour charger la carte google maps */
+function initMap() {
+
+    //coordonnées pour notre ville Paris 
+    var lat = 48.852969; 
+    var lon = 2.349903;
+
+    const location = {lat: 48.85315254679746, lng: 2.3500532037030104};
+
+    map = new google.maps.Map(document.getElementById("carte"), {
+
+        center: new google.maps.LatLng(lat, lon), 
+        zoom:15, 
+        //pour afficher que un seul endroit
+        scrollwheel: false, 
+        mapTypeControlOptions: {
+            // Cette option sert à définir comment les options se placent
+            style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR 
+        },
+        // Activation des options de navigation dans la carte (zoom...)
+        navigationControl: true, 
+        navigationControlOptions: {
+            // Comment ces options doivent-elles s'afficher
+         style: google.maps.NavigationControlStyle.ZOOM_PAN
+        }
+    });
+    new google.maps.Marker({
+      position : location,
+      map: map 
+    });
+}
+
+window.onload = function(){
+    // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+   initMap(); 
+};
 
 (function() {
   "use strict";
+
+  //Fonction qui cherche la localisation de l'utilisateur.
+  /*const trouveMaPosition = () => {
+
+    //const status = document.querySelector('.carte ');
+
+    const success = (position) => {
+      console.log(position) 
+    }
+
+    const error = () => {
+      console.log("Problème")
+    }
+
+    navigator.geolocation.getCurrentPosition(success,error);
+
+  }*/
+
+//AIzaSyBi3tzwp-NeXzn1VssiiooacnFLlata9Y0
 
   /* selector helper function*/
 
