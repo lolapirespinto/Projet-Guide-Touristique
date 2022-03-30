@@ -1,22 +1,6 @@
-/* Fonction pour connecter la bdd au site web*/
-/*------------ C'est ici que ca fonctionne pas : il ne reconnait pas le "require"-------------*/
-/*
-var mysql = require('mysql');
-const connection = createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database:'guide_touristique',
-  port: '8889'
-});
-
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected!');
-});*/
 
 /* Fonction pour charger la carte google maps */
-function initMap() {
+function initCarte(position) {
 
     //coordonnées pour notre ville Paris 
     var lat = 48.852969; 
@@ -26,18 +10,25 @@ function initMap() {
 
     map = new google.maps.Map(document.getElementById("carte"), {
 
+        //centre la carte à la position donnée
         center: new google.maps.LatLng(lat, lon), 
+
+        //définit le zoom 
         zoom:15, 
+
         //pour afficher que un seul endroit
         scrollwheel: false, 
+        
+        //définit comme les options se placent (ici à l'horizontal)
         mapTypeControlOptions: {
-            // Cette option sert à définir comment les options se placent
             style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR 
         },
+
         // Activation des options de navigation dans la carte (zoom...)
         navigationControl: true, 
         navigationControlOptions: {
-            // Comment ces options doivent-elles s'afficher
+
+        // Définit comment les options doivent s'afficher
          style: google.maps.NavigationControlStyle.ZOOM_PAN
         }
     });
@@ -47,32 +38,91 @@ function initMap() {
     });
 }
 
-window.onload = function(){
-    // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
-   initMap(); 
-};
+/* Fonction qui charge la carte centré sur la position de l'utilisateur. */
+function cartePosition(position) {
 
+  const location = {lat: position.coords.latitude, lng: position.coords.longitude};
+
+  map = new google.maps.Map(document.getElementById("carte"), {
+
+    //centre la carte à la position donnée
+    center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 
+
+    //définit le zoom 
+    zoom:15, 
+
+    //pour afficher que un seul endroit
+    scrollwheel: false, 
+    
+    //définit comme les options se placent (ici à l'horizontal)
+    mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR 
+    },
+
+    // Activation des options de navigation dans la carte (zoom...)
+    navigationControl: true, 
+    navigationControlOptions: {
+
+    // Définit comment les options doivent s'afficher
+     style: google.maps.NavigationControlStyle.ZOOM_PAN
+  }
+  });
+
+    new google.maps.Marker({
+      position : location,
+      map: map,
+    });
+
+  //centre la carte sur localisation de l'utilisateur
+  map.panTo(location);
+}
+
+/* Fonction qui retourne la localisation de l'utilisateur.*/
+function maposition() {
+
+  //si la localisation fonctionne 
+  const success = (position) => {
+    var latitude = position.coords.latitude; 
+    var longitude = position.coords.longitude; 
+    cartePosition(position)
+  }
+
+  //s'il y'a une erreur pour localiser l'utilisateur
+  const error = (erreur) => {
+    var msg;
+    switch(erreur.code){
+      case erreur.TIMEOUT:
+        msg = "Le temps de la requête à expiré!";
+      break;
+      case erreur.UNKNOWN_ERROR:
+        msg = "Erreur inconnue.";
+      break;
+      case erreur.POSITION_UNVAILABLE:
+        msg = "Impossible de trouver la localisation.";
+      break;
+      case erreur.PERMISSION_DENIED:
+        msg = "Vous avez refusé la géolocalisation";
+      break;
+    }
+    alert(msg);
+    console.log("Géolocalisation non accessible.")
+  }
+  
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(success,error);
+  }
+  else {
+    console.log("API géolocalisation non accessible.");
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.onload = function(){
+    initCarte(); 
+ };
+}
 (function() {
   "use strict";
-
-  //Fonction qui cherche la localisation de l'utilisateur.
-  /*const trouveMaPosition = () => {
-
-    //const status = document.querySelector('.carte ');
-
-    const success = (position) => {
-      console.log(position) 
-    }
-
-    const error = () => {
-      console.log("Problème")
-    }
-
-    navigator.geolocation.getCurrentPosition(success,error);
-
-  }*/
-
-//AIzaSyBi3tzwp-NeXzn1VssiiooacnFLlata9Y0
 
   /* selector helper function*/
 
