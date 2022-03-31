@@ -48,9 +48,10 @@ function restaurants() {
     for (var i of rows) 
       res.push(i);
     for (let i = 0; i <res.length; ++i) {
-        console.log(res[i].Nom);
+      console.log(res[i].Nom);
     }
   });
+  return res;
 }
 
 //Informations de toutes les activités de type Jardins publics
@@ -102,27 +103,131 @@ function addresses() {
         console.log(res[i]);
     }
   });
+  return res;
 }
 
 //Informations des addresses pour trouver les activités à proximité"
 function long_lat() {
-  var res = [];
+  let res = [];
   $query = 'SELECT * FROM activites';
   connection.query($query, function(err, rows, fields) {
     if(err){
         console.log("La requête n'a pas fonctionnée.");
         return;
     }
-    for (var i of rows) 
-      res.push(i);
+    for (var i of rows) {
+      res.push(i.Longitude);
+      res.push(i.Longitude);
+    }
     for (let i = 0; i <res.length; ++i) {
       console.log(res[i].Longitude);
       console.log(res[i].Latitude);
     }
   });
+  return res;
 }
+
+//Tous les commenataires pour une activité particulière
+function commentaire(id_act) {
+  let res = [];
+  var id = "SELECT * FROM Commentaire WHERE ActivitesId = ?";
+  connection.query(id, id_act, function(err, rows) {
+    if(err){
+        console.log("La requête n'a pas fonctionnée.");
+        return;
+    }
+    for (var i of rows) {
+      res.push(i);
+    }
+    for (let i = 0; i <res.length; ++i) {
+      console.log(res[i].Commentaire);
+    }
+  });
+  return res;
+}
+
+//Tous les pseudos des utilisateurs 
+function utilisateurs() {
+  let res = [];
+  $query = 'SELECT Pseudo FROM utilisateur';
+  connection.query($query, function(err, rows, fields) {
+    if(err){
+        console.log("La requête n'a pas fonctionnée.");
+        return;
+    }
+    for (var i of rows) {
+      res.push(i);
+    }
+    for (let i = 0; i <res.length; ++i) {
+      console.log(res[i].Pseudo);
+    }
+  });
+  return res;
+}
+
 
 //musees();
 //restaurants(); 
 //jardins();
-//siteshistoriques();
+siteshistoriques();
+//utilisateurs();
+//commentaire(2);
+
+
+
+/*var pool = mysql.createPool({
+  connectionLimit : 100,
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database:'guide_touristique',
+  port: '8889',
+  debug    : false 
+});
+
+function executeQuery(query, callback) {
+  pool.getConnection(function (err, connection) {
+    if (err) {
+        return callback(err, null);
+    }
+    else if (connection) {
+        connection.query(query, function (err, rows, fields) {
+            connection.release();
+            if (err) {
+                return callback(err, null);
+            }
+            return callback(null, rows);
+        })
+    }
+    else {
+        return callback(true, "No Connection");
+    }
+  });
+}
+
+
+function getResult(query,callback) {
+  executeQuery(query, function (err, rows) {
+     if (!err) {
+        callback(null,rows);
+     }
+     else {
+        callback(true,err);
+     }
+  });
+}
+
+function getServers() {
+  getResult('SELECT * FROM activites',function(err,rows){
+    if(!err){
+        return rows;
+    }else{
+        console.log(err);
+    }
+  });   
+}*/
+
+//exports.getList = getList;
+//var getResult = executeQuery;
+//console.log(getServers());
+

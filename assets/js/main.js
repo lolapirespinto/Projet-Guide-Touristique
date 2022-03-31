@@ -1,12 +1,12 @@
 
 /* Fonction pour charger la carte google maps */
-function initCarte(position) {
+function initCarte() {
 
     //coordonnées pour notre ville Paris 
-    var lat = 48.852969; 
-    var lon = 2.349903;
+    var lat = 48.8737673; 
+    var lon = 2.2954441;
 
-    const location = {lat: 48.85315254679746, lng: 2.3500532037030104};
+    const location = {lat: 48.8737673, lng: 2.2954441};
 
     map = new google.maps.Map(document.getElementById("carte"), {
 
@@ -32,21 +32,22 @@ function initCarte(position) {
          style: google.maps.NavigationControlStyle.ZOOM_PAN
         }
     });
-    new google.maps.Marker({
-      position : location,
-      map: map 
-    });
 }
 
 /* Fonction qui charge la carte centré sur la position de l'utilisateur. */
 function cartePosition(position) {
 
   const location = {lat: position.coords.latitude, lng: position.coords.longitude};
+  
+  /*---------TEST POUR ACTIVITÉS A PROXIMITE-----------*/
+  //const location = {lat: 48.8737673, lng: 2.2954441};
+  //const location2 = {lat: 48.8657694, lng: 2.3195573};
 
   map = new google.maps.Map(document.getElementById("carte"), {
 
     //centre la carte à la position donnée
     center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 
+    //center: new google.maps.LatLng(48.8737673, 2.2954441), 
 
     //définit le zoom 
     zoom:15, 
@@ -68,13 +69,34 @@ function cartePosition(position) {
   }
   });
 
-    new google.maps.Marker({
-      position : location,
-      map: map,
-    });
+  //affiche un marqueur sur la carte
+  new google.maps.Marker({
+    position : location,
+    map: map,
+  });
 
   //centre la carte sur localisation de l'utilisateur
   map.panTo(location);
+
+  /*getResult('SELECT * FROM activites',function(err,rows){
+    if(!err){
+      const location2 = {lat: rows[1].Latitude, lng: rows[1].Longitude};
+      new google.maps.Marker({
+        position : location2,
+        map: map,
+      });
+        
+    }else{
+        console.log(err);
+    }
+  });  */
+
+
+    /*new google.maps.Marker({
+      position : location2,
+      map: map,
+    });*/
+
 }
 
 /* Fonction qui retourne la localisation de l'utilisateur.*/
@@ -121,6 +143,7 @@ if (typeof window !== "undefined") {
     initCarte(); 
  };
 }
+
 (function() {
   "use strict";
 
