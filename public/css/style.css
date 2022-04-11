@@ -173,10 +173,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-
-
-
-
 /*Sections General*/
 section {
   padding: 60px 0;
@@ -231,8 +227,6 @@ section {
 .home .content p:last-child {
   margin-bottom: 0;
 }
-
-
 
 /* activities*/
 .activities .activities-item {
@@ -412,6 +406,7 @@ section {
 }
 .activities-details .activities-description {
   padding-top: 30px;
+  margin-right: 50px;
 }
 .activities-details .activities-description h2 {
   font-size: 26px;
@@ -598,3 +593,8 @@ section {
   font-size: 11px;
   border-radius: 5px;
 }
+
+.img-fluid {
+  width: 150%;
+}
+

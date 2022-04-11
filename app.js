@@ -21,47 +21,46 @@ connection.connect((err) => {
 //Initialisation serveur express
 const app = express();
 
+//Configuration EJS
+app.set('views','./views') 
+app.set('view engine','ejs')
+
+//Ajout des fichiers static
+app.use(express.static('public'));
+app.use('/css',express.static(__dirname + 'public/css'))
+app.use('/js',express.static(__dirname + 'public/js'))
+app.use('/img',express.static(__dirname + 'public/img'))
+app.use('/vendor',express.static(__dirname + 'public/vendor'))
+
+//Select activités 
+app.get('', (req, res) => {
+  var data = "";
+  let sql = 'SELECT * FROM activites';
+  let query = connection.query(sql, (err, results) => {
+      if(err) throw err;
+      var data = results;
+      //console.log(data);
+      res.render('index', {data:data});
+  });
+});
+
+//Select d'une activité particulière
+app.get('/:id', (req, res) => {
+  var data = "";
+  let sql = `SELECT * FROM activites WHERE ActivitesId = ${req.params.id}`;
+  let query = connection.query(sql, (err, results) => {
+      if(err) throw err;
+      var data = results;
+      console.log(data);
+  });
+  res.render('activites');
+});
+
+/*app.get('/activites', (req, res) => {
+  //res.render('activites')
+});*/
+
 /*--------- Requêtes de récupération de données nécessaire pour notre appli ----------------*/
-
-//Informations de toutes les activités de type Musées
-app.get('/getMusees', (req, res) => {
-  let sql = 'SELECT * FROM activites  WHERE Categorie="Musées"';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
-  });
-});
-
-//Informations de toutes les activités de type Restaurants
-app.get('/getRestaurants', (req, res) => {
-  let sql = 'SELECT * FROM activites WHERE Categorie="Restaurants"';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
-  });
-});
-
-//Informations de toutes les activités de type Jardins publics
-app.get('/getJardins', (req, res) => {
-  let sql = 'SELECT * FROM activites WHERE Categorie="Jardins publics"';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
-  });
-});
-
-//Informations de toutes les activités de type Sites historiques"
-app.get('/getSites', (req, res) => {
-  let sql = 'SELECT * FROM activites WHERE Categorie="Sites historiques"';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
-  });
-});
 
 //Informations des addresses pour trouver les activités à proximité"
 app.get('/getAdresse', (req, res) => {
@@ -73,28 +72,8 @@ app.get('/getAdresse', (req, res) => {
   });
 });
 
-//Tous les donnnées d'une activité
-app.get('/getSites', (req, res) => {
-  let sql = 'SELECT * FROM activites';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
-  });
-});
-
-//Tous les pseudos des utilisateurs 
+/*Tous les commentaires pour une activité particulière
 app.get('/getPseudos', (req, res) => {
-  let sql = 'SELECT Pseudo FROM utilisateur';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
-  });
-});
-
-//Tous les commentaires pour une activité particulière
-/*app.get('/getPseudos', (req, res) => {
   let sql = "SELECT * FROM Commentaire WHERE ActivitesId = ?";
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
@@ -103,8 +82,7 @@ app.get('/getPseudos', (req, res) => {
   });
 });*/
 
-
 //démarrage serveur 
 app.listen('3000', () => {
-  console.log('Server started on port 3000');
+  console.log('Le serveur écoute au port 3000');
 });
