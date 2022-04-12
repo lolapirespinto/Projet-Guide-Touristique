@@ -32,6 +32,7 @@ app.use('/js',express.static(__dirname + 'public/js'))
 app.use('/img',express.static(__dirname + 'public/img'))
 app.use('/vendor',express.static(__dirname + 'public/vendor'))
 
+
 //Select activités 
 app.get('', (req, res) => {
   var data = "";
@@ -39,26 +40,25 @@ app.get('', (req, res) => {
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
       var data = results;
-      //console.log(data);
       res.render('index', {data:data});
   });
 });
 
+/*app.get('/activites', (req, res) => {
+  res.render('activites')
+});*/
+
 //Select d'une activité particulière
-app.get('/:id', (req, res) => {
+app.get('/activites/:id', (req, res) => {
   var data = "";
+  'SELECT * FROM users WHERE id = ?'
   let sql = `SELECT * FROM activites WHERE ActivitesId = ${req.params.id}`;
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
       var data = results;
-      console.log(data);
+      res.render('activites',{data:data});
   });
-  res.render('activites');
 });
-
-/*app.get('/activites', (req, res) => {
-  //res.render('activites')
-});*/
 
 /*--------- Requêtes de récupération de données nécessaire pour notre appli ----------------*/
 
