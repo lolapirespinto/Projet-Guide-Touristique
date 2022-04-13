@@ -37,6 +37,7 @@ function initCarte() {
 /* Fonction qui charge la carte centré sur la position de l'utilisateur. */
 function cartePosition(position) {
 
+  /*---------Géolocalisation--------------------- */
   //const location = {lat: position.coords.latitude, lng: position.coords.longitude};
   
   /*---------TEST LOCALISATION À PARIS-----------*/
@@ -68,14 +69,14 @@ function cartePosition(position) {
   }
   });
 
-  //affiche un marqueur sur la carte
+  //MARQUEUR GÉOLOCALISATION
   /*new google.maps.Marker({
     position : location,
     map: map,
   });*/
 
   //TEST LOCALISATION À PARIS
-  let marker = new google.maps.Marker({
+  new google.maps.Marker({
       position : location3,
       map: map,
       icon: {
@@ -87,9 +88,15 @@ function cartePosition(position) {
 
   for (const iterator in data) {
     var location2 = {lat: data[iterator].Latitude, lng: data[iterator].Longitude};
-    new google.maps.Marker({
+    let marker = new google.maps.Marker({
       position : location2,
       map: map,
+    });
+    google.maps.event.addListener(marker,'click',function() {
+      //<a href="activites/<%=data[i].ActivitesId%>"
+      let id = data[iterator].ActivitesId;
+      //="ficheClient.php?idClient="+idClient+"";
+      window.location.href = "activites/"+id+"";
     });
   }
 
