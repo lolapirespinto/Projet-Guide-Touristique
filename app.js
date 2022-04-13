@@ -33,7 +33,7 @@ app.use('/img',express.static(__dirname + 'public/img'))
 app.use('/vendor',express.static(__dirname + 'public/vendor'))
 
 
-//Select activités 
+//Page d'accueil avec les activités
 app.get('', (req, res) => {
   var data = "";
   let sql = 'SELECT * FROM activites';
@@ -44,11 +44,7 @@ app.get('', (req, res) => {
   });
 });
 
-/*app.get('/activites', (req, res) => {
-  res.render('activites')
-});*/
-
-//Select d'une activité particulière
+//Fiche description pour une activité particulière
 app.get('/activites/:id', (req, res) => {
   var data = "";
   'SELECT * FROM users WHERE id = ?'
@@ -60,17 +56,16 @@ app.get('/activites/:id', (req, res) => {
   });
 });
 
-/*--------- Requêtes de récupération de données nécessaire pour notre appli ----------------*/
-
 //Informations des addresses pour trouver les activités à proximité"
-app.get('/getAdresse', (req, res) => {
-  let sql = 'SELECT Adresse FROM activites';
+/*app.get('/getAdresse', (req, res) => {
+  var data = "";
+  let sql = 'SELECT Longitude, Latitude FROM activites';
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
+      var data = results;
+      res.render('index',{carte:data});
   });
-});
+});*/
 
 /*Tous les commentaires pour une activité particulière
 app.get('/getPseudos', (req, res) => {
