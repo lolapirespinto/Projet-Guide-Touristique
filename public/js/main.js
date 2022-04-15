@@ -93,9 +93,7 @@ function cartePosition(position) {
       map: map,
     });
     google.maps.event.addListener(marker,'click',function() {
-      //<a href="activites/<%=data[i].ActivitesId%>"
       let id = data[iterator].ActivitesId;
-      //="ficheClient.php?idClient="+idClient+"";
       window.location.href = "activites/"+id+"";
     });
   }

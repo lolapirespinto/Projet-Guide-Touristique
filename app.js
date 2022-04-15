@@ -40,6 +40,7 @@ app.get('', (req, res) => {
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
       var data = results;
+      //console.log(data.count());
       res.render('index', {data:data});
   });
 });
@@ -55,17 +56,6 @@ app.get('/activites/:id', (req, res) => {
       res.render('activites',{data:data});
   });
 });
-
-//Informations des addresses pour trouver les activités à proximité"
-/*app.get('/getAdresse', (req, res) => {
-  var data = "";
-  let sql = 'SELECT Longitude, Latitude FROM activites';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      var data = results;
-      res.render('index',{carte:data});
-  });
-});*/
 
 /*Tous les commentaires pour une activité particulière
 app.get('/getPseudos', (req, res) => {

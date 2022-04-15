@@ -44,6 +44,7 @@
           <li><a class="nav-link scrollto" href="#home">Accueil</a></li>
           <li><a class="nav-link scrollto " href="#activities">Activités</a></li>
           <li><a class="nav-link scrollto " href="#map">Carte</a></li>
+          <li><a class="nav-link scrollto " href="#monvoyage">Mon voyage</a></li>
           <ul>
             <li class="dropdown"><a href="#"><span>Compte</span> <i class="bi bi-chevron-right"></i></a>
               <ul>
@@ -92,7 +93,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -109,38 +109,51 @@
               <li data-filter="*" class="filter-active">Tout</li>
               <li data-filter=".filter-Restaurants">Restaurants</li>
               <li data-filter=".filter-Musées">Musées</li>
-              <li data-filter=".filter-Jardins publics">Jardins publics</li>
+              <li data-filter=".filter-Jardins">Jardins publics</li>
             </ul>
           </div>
         </div>
-        <div class="row activities-container" data-aos="fade-up" data-aos-delay="200">
-          <% for(var i=0; i < 9 ; i++){ %>
-            <div class="col-lg-4 col-md-6 activities-item filter-<%=data[i].Categorie%>">
-              <div class="activities-wrap">
-                <img src="img/activities/<%=data[i].Nom%>.jpg" class="img-fluid" alt="">
-                <div class="activities-info">
-                  <h4><%=data[i].Nom%> <span id="sum"></span></h4>
-                  <p><%=data[i].Categorie%></p>
-                  <div class="activities-links">
-                    <a href="img/activities/<%=data[i].Nom%>.jpg" data-gallery="activitiesGallery" class="activities-lightbox" title="<%=data[i].Nom%>"><i class="bx bx-plus"></i></a>
-                    <a href="activites/<%=data[i].ActivitesId%>" title="More Details"><i class="bx bx-link"></i></a>
+        <div style="overflow-x: scroll; height:600px;">
+          <div class="row activities-container" data-aos="fade-up" data-aos-delay="200">
+            <% for(var i=0; i<data.length ; i++) {%>
+              <div class="col-lg-4 col-md-6 activities-item filter-<%=data[i].Categorie%>">
+                <div class="activities-wrap">
+                  <img src="img/activities/<%=data[i].Nom%>.jpg" class="img-fluid" alt="">
+                  <div class="activities-info">
+                    <h4><%=data[i].Nom%> <span id="sum"></span></h4>
+                    <p><%=data[i].Categorie%></p>
+                    <div class="activities-links">
+                      <a href="img/activities/<%=data[i].Nom%>.jpg" data-gallery="activitiesGallery" class="activities-lightbox" title="<%=data[i].Nom%>"><i class="bx bx-plus"></i></a>
+                      <a href="activites/<%=data[i].ActivitesId%>" title="More Details"><i class="bx bx-link"></i></a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          <% } %>
+            <% } %>
+          </div>
         </div>
-      </div>
     </section>
 
     <!-- Section Carte -->
     <section id="map" class="map">
       <div class="container">
         <div class="section-title" data-aos="fade-up">
-          <h2>Carte</h2>
-          <p>Quelles sont les activités à proximité ?</p>
-          <div id = "carte"></div>
-          <input class="geolocalisation" type = "button" value="Cliquez ici pour obtenir votre position." onclick="maposition();">
+          <div class="col-lg-12 d-flex justify-content-center"></div>
+            <h2>Carte</h2>
+            <p>Quelles sont les activités à proximité ?</p>
+            <div id = "carte"></div>
+            <input class="geolocalisation" class="col-lg-12 d-flex justify-content-center type = "button" value="Cliquez ici pour obtenir votre position." onclick="maposition();">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Préparer mon voyage -->
+    <section id="monvoyage" class="monvoyage">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Préparer mon voyage!</h2>
+          <p>Consulter ma liste de favoris</p>
         </div>
       </div>
     </section>
