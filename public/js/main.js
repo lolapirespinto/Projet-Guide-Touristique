@@ -1,3 +1,29 @@
+/* Fonction pour la barre de recherche */
+  let searchinput = document.getElementById('searchbar');
+ //let id = ${resultIterator.ActivitesId};
+ if(searchinput){
+    searchinput.addEventListener('keyup',function(){
+      const input = searchinput.value;
+      const data = JSON.parse(document.getElementById('data').textContent);
+      const result = data.filter(iterator => iterator.Nom.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
+      // console.log(typeof(result))
+      if(input != ''){
+        let suggestion = document.getElementById('suggestions');
+        result.forEach(resultIterator => {
+          let div_suggestion = document.createElement("div");
+          div_suggestion.setAttribute("id",resultIterator.ActivitesId);
+          div_suggestion.setAttribute("class","suggestions");
+          link = document.createElement("a");
+          link.innerHTML = resultIterator.Nom;
+          link.setAttribute("href",`activites/${resultIterator.ActivitesId}`);
+          div_suggestion.appendChild(link);
+          // div_suggestion.addEventListener("click", function(){ });
+          suggestion.appendChild(div_suggestion);
+        })
+      }
+    }
+     
+ )}
 
 /* Fonction pour charger la carte google maps */
 function initCarte() {
@@ -38,16 +64,16 @@ function initCarte() {
 function cartePosition(position) {
 
   /*---------Géolocalisation--------------------- */
-  //const location = {lat: position.coords.latitude, lng: position.coords.longitude};
+  const location = {lat: position.coords.latitude, lng: position.coords.longitude};
   
   /*---------TEST LOCALISATION À PARIS-----------*/
-  const location3 = {lat: 48.873725, lng: 2.294289};
+  //const location3 = {lat: 48.873725, lng: 2.294289};
 
   map = new google.maps.Map(document.getElementById("carte"), {
 
     //centre la carte à la position donnée
-    //center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 
-    center: new google.maps.LatLng(48.873725, 2.294289), 
+    center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude), 
+    //center: new google.maps.LatLng(48.873725, 2.294289), 
 
     //définit le zoom 
     zoom:15, 
@@ -70,19 +96,19 @@ function cartePosition(position) {
   });
 
   //MARQUEUR GÉOLOCALISATION
-  /*new google.maps.Marker({
+  new google.maps.Marker({
     position : location,
     map: map,
-  });*/
+  });
 
   //TEST LOCALISATION À PARIS
-  new google.maps.Marker({
+  /*new google.maps.Marker({
       position : location3,
       map: map,
       icon: {
         url: "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
       }
-  });
+  });*/
 
   const data = JSON.parse(document.getElementById('data').textContent)
 

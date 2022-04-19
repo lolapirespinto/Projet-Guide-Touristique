@@ -96,12 +96,14 @@
       </div>
     </section>
 
-    <!-- Section Activités  -->
+    <!-- Section Activités -->
     <section id="activities" class="activities">
       <div class="container">
         <div class="section-title" data-aos="fade-up">
           <h2>Activites</h2>
           <p>Que faire à Paris?</p>
+          <input class="input" id="searchbar" type="text" placeholder="Recherche activité ..">
+          <div id="suggestions"></div>
         </div>
         <div class="row" data-aos="fade-up" data-aos-delay="100">
           <div class="col-lg-12 d-flex justify-content-center">
@@ -142,7 +144,7 @@
             <h2>Carte</h2>
             <p>Quelles sont les activités à proximité ?</p>
             <div id = "carte"></div>
-            <input class="geolocalisation" class="col-lg-12 d-flex justify-content-center type = "button" value="Cliquez ici pour obtenir votre position." onclick="maposition();">
+            <input class="geolocalisation" type = "button" value="Cliquez ici pour obtenir votre position." onclick="maposition();">
           </div>
         </div>
       </div>
