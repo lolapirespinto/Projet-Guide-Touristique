@@ -1,14 +1,15 @@
 /* Fonction pour la barre de recherche */
-  let searchinput = document.getElementById('searchbar');
- //let id = ${resultIterator.ActivitesId};
- if(searchinput){
+const searchinput = document.getElementById('searchbar');
+ if(searchinput) {
     searchinput.addEventListener('keyup',function(){
+      var div = document.getElementById('suggestions');
+      while(div.firstChild)
+        div.removeChild(div.firstChild);  
       const input = searchinput.value;
       const data = JSON.parse(document.getElementById('data').textContent);
       const result = data.filter(iterator => iterator.Nom.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
-      // console.log(typeof(result))
-      if(input != ''){
-        let suggestion = document.getElementById('suggestions');
+      let suggestion = document.getElementById('suggestions');
+      if(input != '') {
         result.forEach(resultIterator => {
           let div_suggestion = document.createElement("div");
           div_suggestion.setAttribute("id",resultIterator.ActivitesId);
@@ -17,12 +18,15 @@
           link.innerHTML = resultIterator.Nom;
           link.setAttribute("href",`activites/${resultIterator.ActivitesId}`);
           div_suggestion.appendChild(link);
-          // div_suggestion.addEventListener("click", function(){ });
           suggestion.appendChild(div_suggestion);
         })
       }
-    }
-     
+      else {
+        var div = document.getElementById('suggestions');
+        while(div.firstChild)
+          div.removeChild(div.firstChild);
+        }
+      }
  )}
 
 /* Fonction pour charger la carte google maps */
