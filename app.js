@@ -21,7 +21,7 @@ connection.connect((err) => {
 //Initialisation serveur express
 const app = express();
 
-//Configuration EJS
+//EJS
 app.set('views','./views') 
 app.set('view engine','ejs')
 
@@ -40,7 +40,7 @@ app.get('', (req, res) => {
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
       var data = results;
-      //console.log(data.count());
+      console.log(data);
       res.render('index', {data:data});
   });
 });
