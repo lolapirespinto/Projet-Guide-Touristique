@@ -36,7 +36,7 @@ module.exports = function(app, passport) {
       user:req.user
      });
     });
-   
+
     app.get('/logout', function(req,res){
      req.logout();
      res.redirect('/');
@@ -46,6 +46,5 @@ module.exports = function(app, passport) {
    function isLoggedIn(req, res, next){
     if(req.isAuthenticated())
      return next();
-   
-    res.redirect('/');
+    res.redirect('/login');
    }

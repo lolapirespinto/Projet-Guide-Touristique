@@ -8,11 +8,9 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
 
-
 var passport = require('passport');
 var flash = require('connect-flash');
 require('./config/passport')(passport);
-
 
 app.use(morgan('dev'));
 app.use(cookieParser());
