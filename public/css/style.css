@@ -457,8 +457,6 @@ section {
   }
 }
 
-
-
 /* Frequently Asked Questions*/
 .faq .faq-list {
   padding: 0;
@@ -612,11 +610,10 @@ section {
   border: 2.5px solid #7cc576;
 }
 
-#searchbar:focus {
-  border-radius: 1px solid #7cc576;
-  border: 2.5px solid #7cc576;
-  border-color: 2.5px solid #7cc576;
+input:focus{
+  outline:none;
 }
+
 .suggestions{
   margin-left: auto;
   margin-right: auto;
@@ -630,5 +627,3 @@ section {
  color: #7cc576;
  font-size: 20px;
 }
-
-

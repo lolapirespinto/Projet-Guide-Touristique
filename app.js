@@ -1,11 +1,28 @@
-/*-------------------Connection avec notre base de données--------------------------*/
+/*--------------------Connection avec notre base de données---------------------------*/
 //killall -9 node
 const mysql = require('mysql');
 const express = require('express');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var app = express();
+
+
+var passport = require('passport');
+var flash = require('connect-flash');
+require('./config/passport')(passport);
+
+
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({
+ extended: true
+}));
 
 //Information d'identifications pour accèder à notre bdd.
 const connection = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root',
   password: 'root',
   database:'guide_touristique',
@@ -19,11 +36,17 @@ connection.connect((err) => {
 });
 
 //Initialisation serveur express
-const app = express();
+//const app = express();
 
 //EJS
 app.set('views','./views') 
 app.set('view engine','ejs')
+
+app.use(session({
+  secret: 'secret',
+  resave:true,
+  saveUninitialized: true
+ }));
 
 //Ajout des fichiers static
 app.use(express.static('public'));
@@ -32,7 +55,6 @@ app.use('/js',express.static(__dirname + 'public/js'))
 app.use('/img',express.static(__dirname + 'public/img'))
 app.use('/vendor',express.static(__dirname + 'public/vendor'))
 
-
 //Page d'accueil avec les activités
 app.get('', (req, res) => {
   var data = "";
@@ -40,10 +62,22 @@ app.get('', (req, res) => {
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
       var data = results;
-      console.log(data);
+      //console.log(data);
       res.render('index', {data:data});
   });
 });
+
+//Page d'accueil avec les activités
+/*app.get('/profile', (req, res) => {
+  var data = "";
+  let sql = 'SELECT * FROM activites';
+  let query = connection.query(sql, (err, results) => {
+      if(err) throw err;
+      var data = results;
+      //console.log(data);
+      res.render('index', {data:data});
+  });
+});*/
 
 //Fiche description pour une activité particulière
 app.get('/activites/:id', (req, res) => {
@@ -57,15 +91,11 @@ app.get('/activites/:id', (req, res) => {
   });
 });
 
-/*Tous les commentaires pour une activité particulière
-app.get('/getPseudos', (req, res) => {
-  let sql = "SELECT * FROM Commentaire WHERE ActivitesId = ?";
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      console.log(results);
-      res.send('Posts fetched...');
-  });
-});*/
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+require('./app/routes.js')(app, passport);
 
 //démarrage serveur 
 app.listen('3000', () => {
