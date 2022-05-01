@@ -624,6 +624,13 @@ input:focus{
 }
 
 .suggestions:hover{
- color: #7cc576;
+ color: #101a0f;
  font-size: 20px;
 }
+
+.bx-burst-hover{
+  color: #EA2929;
+  position: relative;
+}
+
+

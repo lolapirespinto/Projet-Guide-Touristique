@@ -5,7 +5,6 @@ var dbconfig = require('./database');
 var bodyParser = require("body-parser");
 var connection = mysql.createConnection(dbconfig.connection);
 
-
 connection.query('USE ' + dbconfig.database);
 
 module.exports = function(passport) {
@@ -28,7 +27,7 @@ module.exports = function(passport) {
     if(err)
      return done(err);
     if(rows.length){
-     return done(null, false, req.flash('signupMessage', 'That is already taken'));
+     return done(null, false, req.flash('signupMessage', 'Ce compte existe déjà!'));
     }else{
       
     const salt = bcrypt.genSaltSync();
@@ -52,8 +51,6 @@ module.exports = function(passport) {
   })
  );
 
- 
-
  passport.use(
   'local-login',
   new LocalStrategy({
@@ -68,10 +65,10 @@ module.exports = function(passport) {
     if(err)
      return done(err);
     if(!rows.length){
-     return done(null, false, req.flash('loginMessage', 'No User Found'));
+     return done(null, false, req.flash('loginMessage', 'Mauvaise adresse mail'));
     }
     if(!bcrypt.compareSync(password, rows[0].password))
-     return done(null, false, req.flash('loginMessage', 'Wrong Password'));
+     return done(null, false, req.flash('loginMessage', 'Mauvais mot de passe'));
 
     return done(null, rows[0]);
    });

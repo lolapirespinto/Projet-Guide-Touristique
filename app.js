@@ -33,9 +33,6 @@ connection.connect((err) => {
   console.log('Connection établie!');
 });
 
-//Initialisation serveur express
-//const app = express();
-
 //EJS
 app.set('views','./views') 
 app.set('view engine','ejs')
@@ -55,31 +52,16 @@ app.use('/vendor',express.static(__dirname + 'public/vendor'))
 
 //Page d'accueil avec les activités
 app.get('', (req, res) => {
-  var data = "";
   let sql = 'SELECT * FROM activites';
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
       var data = results;
-      //console.log(data);
       res.render('index', {data:data});
   });
 });
 
-//Page d'accueil avec les activités
-/*app.get('/profile', (req, res) => {
-  var data = "";
-  let sql = 'SELECT * FROM activites';
-  let query = connection.query(sql, (err, results) => {
-      if(err) throw err;
-      var data = results;
-      //console.log(data);
-      res.render('index', {data:data});
-  });
-});*/
-
 //Fiche description pour une activité particulière
 app.get('/activites/:id', (req, res) => {
-  var data = "";
   'SELECT * FROM users WHERE id = ?'
   let sql = `SELECT * FROM activites WHERE ActivitesId = ${req.params.id}`;
   let query = connection.query(sql, (err, results) => {

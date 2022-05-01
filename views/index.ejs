@@ -133,7 +133,7 @@
                       <p><%=data[i].Categorie%></p>
                       <div class="activities-links">
                         <a href="img/activities/<%=data[i].Nom%>.jpg" data-gallery="activitiesGallery" class="activities-lightbox" title="<%=data[i].Nom%>"><i class="bx bx-plus"></i></a>
-                        <a href="activites/<%=data[i].ActivitesId%>" title="More Details"><i class="bx bx-link"></i></a>
+                        <a href="activites/<%=data[i].ActivitesId%>" title="Plus de détails"><i class="bx bx-link"></i></a>
                       </div>
                     </div>
                   </div>
@@ -266,11 +266,11 @@
 
   <!--  JS File -->
   <script src="require.js"></script>
+  <script src="../config/passeport.js"></script>
   <script type="text/javascript"></script>
   <script src="node_modules/mysql/index.js"></script>
   <script id="data" type="application/json"><%- JSON.stringify(data) %></script>
   <script src="js/main.js"></script>
-  <script src="https://maps.google.com/maps/api/js?key=AIzaSyBi3tzwp-NeXzn1VssiiooacnFLlata9Y0"></script>
-
+  <script src="https://maps.google.com/maps/api/js?key=AIzaSyBi3tzwp-NeXzn1VssiiooacnFLlata9Y0"></script>/
 </body>
 </html>

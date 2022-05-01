@@ -1,3 +1,9 @@
+var mysql = require('mysql');
+var dbconfig = require('../config/database');
+var connection = mysql.createConnection(dbconfig.connection);
+connection.query('USE ' + dbconfig.database);
+
+
 module.exports = function(app, passport) {
     app.get('/', function(req, res){
      res.render('index.ejs');
@@ -8,7 +14,7 @@ module.exports = function(app, passport) {
     });
    
     app.post('/login', passport.authenticate('local-login', {
-     successRedirect: '/profil',
+     successReturnToOrRedirect: "/profil",
      failureRedirect: '/login',
      failureFlash: true
     }),
@@ -37,12 +43,36 @@ module.exports = function(app, passport) {
      });
     });
 
+    app.get('/favoris/:id', isLoggedIn, function(req, res){
+        if(req.user) {
+            mail = req.user.username;
+            let select = `SELECT * FROM favoris WHERE mail = '${mail}' AND ActivitesId = ${req.params.id}`;
+            connection.query(select,(err, rows) => {
+                if(err) throw err;
+                else if(rows.length){
+                    console.log("activité déjà en favorite!")
+                    res.redirect('back');
+                }else {
+                    let sql = `INSERT INTO favoris VALUES ('${mail}',${req.params.id})`;
+                    connection.query(sql, (err) => {
+                        if(err) throw err;
+                        console.log("activité ajoutée en favoris!");
+                        res.redirect('back');
+                    });
+                }
+            });
+        } 
+        else {
+            res.redirect('/login');
+        }
+    });
+
     app.get('/logout', function(req,res){
      req.logout();
      res.redirect('/');
     })
    };
-   
+
    function isLoggedIn(req, res, next){
     if(req.isAuthenticated())
      return next();

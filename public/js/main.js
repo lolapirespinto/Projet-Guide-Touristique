@@ -1,33 +1,38 @@
-/* Fonction pour la barre de recherche */
+ /* Fonction pour la barre de recherche */
 const searchinput = document.getElementById('searchbar');
- if(searchinput) {
-    searchinput.addEventListener('keyup',function(){
-      var div = document.getElementById('suggestions');
-      while(div.firstChild)
-        div.removeChild(div.firstChild);  
-      const input = searchinput.value;
-      const data = JSON.parse(document.getElementById('data').textContent);
-      const result = data.filter(iterator => iterator.Nom.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
-      let suggestion = document.getElementById('suggestions');
-      if(input != '') {
-        result.forEach(resultIterator => {
-          let div_suggestion = document.createElement("div");
-          div_suggestion.setAttribute("id",resultIterator.ActivitesId);
-          div_suggestion.setAttribute("class","suggestions");
-          link = document.createElement("a");
-          link.innerHTML = resultIterator.Nom;
-          link.setAttribute("href",`activites/${resultIterator.ActivitesId}`);
-          div_suggestion.appendChild(link);
-          suggestion.appendChild(div_suggestion);
-        })
-      }
-      else {
-        var div = document.getElementById('suggestions');
-        while(div.firstChild)
-          div.removeChild(div.firstChild);
-        }
-      }
- )}
+
+if(searchinput) {
+   searchinput.addEventListener('keyup',function(){
+     
+       
+     var div = document.getElementById('suggestions');
+     while(div.firstChild)
+       div.removeChild(div.firstChild);  
+     const input = searchinput.value;
+     const data = JSON.parse(document.getElementById('data').textContent);
+     const result = data.filter(iterator => iterator.Nom.toLocaleLowerCase().includes(input.toLocaleLowerCase()));
+     let suggestion = document.getElementById('suggestions');
+
+     if(input != '') {
+     
+       result.forEach(resultIterator => {
+         let div_suggestion = document.createElement("div");
+         div_suggestion.setAttribute("id",resultIterator.ActivitesId);
+         div_suggestion.setAttribute("class","suggestions");
+         link = document.createElement("a");
+         link.innerHTML = resultIterator.Nom;
+         link.setAttribute("href",`activites/${resultIterator.ActivitesId}`);
+         div_suggestion.appendChild(link);
+         suggestion.appendChild(div_suggestion);
+       })
+     }
+     else {
+       var div = document.getElementById('suggestions');
+       while(div.firstChild)
+         div.removeChild(div.firstChild);
+       }
+     }
+)}
 
 /* Fonction pour charger la carte google maps */
 function initCarte() {
