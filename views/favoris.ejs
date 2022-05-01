@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Guide Touristique</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Logo icon -->
+  <link href="img/logo.png" rel="icon">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS -->
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> <!--Animate on Scroll Library-->
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> <!--icons from boostrap-->
+  <link href="vendor/boxicons/css/boxicons.min.css" rel="stylesheet"> <!--open source icons designed on 24px grid-->
+  <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> <!--Animation library-->
+
+  <!-- CSS File -->
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <a href="/"><img src="img/logo.png" class="img-fluid"></a>
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          
+          <li><a class="nav-link scrollto" href="#home">Accueil</a></li>
+          <li><a class="nav-link scrollto " href="#activities">Activités</a></li>
+          <li><a class="nav-link scrollto " href="#map">Carte</a></li>
+          <li><a class="nav-link scrollto " href="#monvoyage">Mon voyage</a></li>
+          <ul>
+            <li class="dropdown"><a href="#"><span>Compte</span> <i class="bi bi-chevron-right"></i></a>
+              <ul>
+                <li><a href="/login">Se connecter</a></li>
+                <li><a href="/signup">S'inscrire</a></li>
+                <li><a href="/profil">Mon profil</a></li>
+                <li><a href="/mesfavoris">Mes favoris</a></li>
+              </ul>
+            </li>
+        </li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!--  Accueil -->
+    <section id="home" class="home"></section>
+        <div class="section-title" data-aos="fade-up">
+          <h2> Mes favoris </h2>
+        </div>
+    </section>
+
+    <!-- Section Activités -->
+    <section id="activities" class="activities">
+    <div class="container">
+        <div style="overflow-x: scroll; height:600px;">
+            <div class="row activities-container" data-aos="fade-up" data-aos-delay="200">
+              <% for(var i=0; i<data.length ; i++) {%>
+                <div class="col-lg-4 col-md-6 activities-item filter-<%=data[i].Categorie%>">
+                    <div class="activities-wrap">
+                      <img src="img/activities/<%=data[i].Nom%>.jpg" class="img-fluid" alt="">
+                      <div class="activities-info">
+                        <h4><%=data[i].Nom%> <span id="sum"></span></h4>
+                        <p><%=data[i].Categorie%></p>
+                        <div class="activities-links">
+                          <a href="img/activities/<%=data[i].Nom%>.jpg" data-gallery="activitiesGallery" class="activities-lightbox" title="<%=data[i].Nom%>"><i class="bx bx-plus"></i></a>
+                          <a href="activites/<%=data[i].ActivitesId%>" title="Plus de détails"><i class="bx bx-link"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
+    </section>
+    
+  </main>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="vendor/aos/aos.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="vendor/swiper/swiper-bundle.min.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.1.0/js/fontawesome-iconpicker.min.js'></script>
+  
+
+  <!--  JS File -->
+  <script src="require.js"></script>
+  <script src="../config/passeport.js"></script>
+  <script type="text/javascript"></script>
+  <script src="node_modules/mysql/index.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -43,6 +43,7 @@ module.exports = function(app, passport) {
      });
     });
 
+
     app.get('/favoris/:id', isLoggedIn, function(req, res){
         if(req.user) {
             mail = req.user.username;
@@ -62,6 +63,23 @@ module.exports = function(app, passport) {
                 }
             });
         } 
+        else {
+            res.redirect('/login');
+        }
+    });
+
+    app.get('/mesfavoris', isLoggedIn, function(req, res){
+        if(req.user) {
+            mail = req.user.username;
+            let select =`SELECT * FROM activites,favoris WHERE favoris.mail = '${mail}' AND activites.ActivitesId=favoris.ActivitesId;`
+            connection.query(select,(err, rows) => {
+                if(err) throw err;
+                else {
+                    var data = rows;
+                    res.render('favoris', {data:data});
+                }
+            });
+        }
         else {
             res.redirect('/login');
         }
