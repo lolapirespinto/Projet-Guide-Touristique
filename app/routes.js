@@ -84,6 +84,59 @@ module.exports = function(app, passport) {
             res.redirect('/login');
         }
     });
+    
+    // commentaire
+
+
+    app.get('/favoris/:id', isLoggedIn, function(req, res){
+        if(req.user) {
+            mail = req.user.username;
+            let select = `SELECT * FROM favoris WHERE mail = '${mail}' AND ActivitesId = ${req.params.id}`;
+            connection.query(select,(err, rows) => {
+                if(err) throw err;
+                else if(rows.length){
+                    console.log("activité déjà en favorite!")
+                    res.redirect('back');
+                }else {
+                    let sql = `INSERT INTO favoris VALUES ('${mail}',${req.params.id})`;
+                    connection.query(sql, (err) => {
+                        if(err) throw err;
+                        console.log("activité ajoutée en favoris!");
+                        res.redirect('back');
+                    });
+                }
+            });
+        } 
+        else {
+            res.redirect('/login');
+        }
+    });
+
+    app.get('/commentaire/:id', isLoggedIn, function(req, res){
+        if(req.user) {
+            commentaire = req.body.commentaire;
+            
+            
+            connection.query(select,(err, rows) => {
+                //if(err) throw err;
+                username = req.user.username;
+                console.log(req.body.commentaire);
+                let sql = `INSERT INTO commentaire VALUES ('${username}','${req.params.id}', ${commentaire})`;
+                connection.query(sql, (err) => {
+                    if(err) throw err;
+                    console.log("commentaire ajoutée!");
+                    res.redirect('back');
+                });
+               // else {
+                   
+                }
+           // }
+           );
+        }
+        else {
+            res.redirect('/login');
+        }
+    });
 
     app.get('/logout', function(req,res){
      req.logout();
