@@ -102,8 +102,19 @@
             </div>
           </div>
         </div>
+       
+    <form method="post" action="/commentaire/<%=data[0].ActivitesId%>">
+      <div class="form-group">
+        <label> Commentaire </label>
+       <input type="text" class="form-control" name="commentaire" >
+     <a href="/commentaire/<%=data[0].ActivitesId%>" button type="submit" class="btn btn-succcess btn-lg" style="margin-left: 960px; background-color:#7cc576; margin-top:10px">Sauvegarder</button></a>
+      </div>
+    </form>
+     
       </div>
     </section>
+    
+
   </main>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
