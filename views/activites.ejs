@@ -104,6 +104,15 @@
           <h2>Description</h2>
           <p> <%=data[0].Description%></p>
         </div>
+        <div class="activities-description">
+          <% if(data[0].commentaire != undefined){%>
+            <h2>Commentaire :</h2>
+            <% for(var i=0; i<data.length ; i++) {%>
+              <p><strong><%=data[i].username%> -</strong> </p>
+              <p> <%=data[i].commentaire%></p>
+            <% } %>
+          <% } %>
+        </div>
         <form method="post" action="/commentaire/<%=data[0].ActivitesId%>">
           <div class="form-group">
             <label><strong>Ajoutez votre commentaire :</strong></label>

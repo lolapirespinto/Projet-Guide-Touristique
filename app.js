@@ -63,7 +63,8 @@ app.get('', (req, res) => {
 //Fiche description pour une activité particulière
 app.get('/activites/:id', (req, res) => {
   'SELECT * FROM users WHERE id = ?'
-  let sql = `SELECT * FROM activites WHERE ActivitesId = ${req.params.id}`;
+  let sql = `SELECT * FROM commentaire RIGHT JOIN activites A ON A.ActivitesId = commentaire.ActivitesId
+  WHERE A.ActivitesId = ${req.params.id}`;
   let query = connection.query(sql, (err, results) => {
       if(err) throw err;
       var data = results;
