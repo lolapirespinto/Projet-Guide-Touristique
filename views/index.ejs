@@ -37,10 +37,8 @@
       <div class="logo">
         <a href="/"><img src="img/logo.png" class="img-fluid"></a>
       </div>
-
       <nav id="navbar" class="navbar">
         <ul>
-          
           <li><a class="nav-link scrollto" href="#home">Accueil</a></li>
           <li><a class="nav-link scrollto " href="#activities">Activités</a></li>
           <li><a class="nav-link scrollto " href="#map">Carte</a></li>
@@ -53,10 +51,9 @@
                 <li><a href="/mesfavoris">Mes favoris</a></li>
               </ul>
             </li>
-        </li>
+          </li>
         </ul>
       </nav>
-
     </div>
   </header>
 
@@ -127,7 +124,7 @@
         <div style="overflow-x: scroll; height:600px;">
           <div class="row activities-container" data-aos="fade-up" data-aos-delay="200">
             <% for(var i=0; i<data.length ; i++) {%>
-              <div class="col-lg-4 col-md-6 activities-item filter-<%=data[i].Categorie%>">
+              <div id="act" class="col-lg-4 col-md-6 activities-item filter-<%=data[i].Categorie%> col-lg-4 col-md-6 activities-item filter-<%=data[i].Prix%>">
                   <div class="activities-wrap">
                     <img src="img/activities/<%=data[i].Nom%>.jpg" class="img-fluid" alt="">
                     <div class="activities-info">
@@ -139,20 +136,7 @@
                       </div>
                     </div>
                   </div>
-              </div><!--
-              <div class="col-lg-4 col-md-6 activities-item filter-<%=data[i].Prix%>">
-                <div class="activities-wrap">
-                  <img src="img/activities/<%=data[i].Nom%>.jpg" class="img-fluid" alt="">
-                  <div class="activities-info">
-                    <h4><%=data[i].Nom%> <span id="sum"></span></h4>
-                    <p><%=data[i].Categorie%></p>
-                    <div class="activities-links">
-                      <a href="img/activities/<%=data[i].Nom%>.jpg" data-gallery="activitiesGallery" class="activities-lightbox" title="<%=data[i].Nom%>"><i class="bx bx-plus"></i></a>
-                      <a href="activites/<%=data[i].ActivitesId%>" title="More Details"><i class="bx bx-link"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>-->
+              </div> 
             <% } %>
           </div>
         </div>

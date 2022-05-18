@@ -633,3 +633,13 @@ input:focus{
   position: relative;
 }
 
+.logoLog{
+  width: 115px; 
+  height: 50px; 
+  margin-right: 15px;
+}
+
+.form-control{
+  margin-top: 15px;
+}
+
